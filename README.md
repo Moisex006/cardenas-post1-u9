@@ -1,8 +1,7 @@
 # Post-contenido — Unidad 9: Seguridad en Aplicaciones Web
 
 ## Descripción
-Repositorio del laboratorio de la Unidad 9 de Programación Web —
-Séptimo Semestre. Contiene un único proyecto Maven Spring Boot
+Repositorio del laboratorio de la Unidad 9 de Programación Web. Contiene un único proyecto Maven Spring Boot
 (`seguridad-web/`) con dos mecanismos de autenticación coexistiendo:
 sesión (Spring Security form-login) para las vistas Thymeleaf, y
 JWT stateless para la API REST bajo `/api/**`.
