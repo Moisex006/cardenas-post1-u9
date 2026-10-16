@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tareas</title>
+  <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+  <h1 sec:authorize="hasRole('ADMIN')">Todas las Tareas</h1>
+  <h1 sec:authorize="!hasRole('ADMIN')">Mis Tareas</h1>
+  <p class="menu"><a th:href="@{/dashboard}">Volver al dashboard</a></p>
+
+  <!-- Buscador: el texto llega a TareaRepository como parámetro de @Query -->
+  <form th:action="@{/tareas}" method="get">
+    <label for="q">Buscar por título:</label>
+    <input type="text" id="q" name="q" th:value="${q}" />
+    <button type="submit">Buscar</button>
+  </form>
+  <p th:if="${q != null and !#strings.isEmpty(q)}" class="aviso">
+    Resultados para <strong th:text="${q}"></strong>:
+    <span th:text="${#lists.size(tareas)}"></span> tarea(s)
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Título</th><th>Descripción</th><th>Propietario</th><th>Estado</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      <tr th:each="t : ${tareas}">
+        <td th:text="${t.titulo}" th:classappend="${t.completada} ? 'completada' : ''"></td>
+        <td th:text="${t.descripcion}"></td>
+        <td th:text="${t.propietario.email}"></td>
+        <td th:text="${t.completada} ? 'Completada' : 'Pendiente'"></td>
+        <td>
+          <form class="linea" th:action="@{/tareas/{id}/estado(id=${t.id})}" method="post">
+            <button type="submit" th:text="${t.completada} ? 'Reabrir' : 'Completar'">Completar</button>
+          </form>
+          <form class="linea" th:action="@{/tareas/{id}/eliminar(id=${t.id})}" method="post"
+                onsubmit="return confirm('¿Eliminar esta tarea?')">
+            <button type="submit">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      <tr th:if="${#lists.isEmpty(tareas)}">
+        <td colspan="5">No hay tareas que coincidan.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Nueva tarea</h2>
+  <form th:action="@{/tareas}" th:object="${nueva}" method="post">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" th:field="*{titulo}" required />
+    <span class="error" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" th:field="*{descripcion}" rows="2"></textarea>
+    <span class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
+    <button type="submit">Crear tarea</button>
+  </form>
+</body>
+</html>

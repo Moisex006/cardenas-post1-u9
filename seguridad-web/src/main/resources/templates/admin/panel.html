@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+  <h1>Panel de Administración</h1>
+  <p class="menu"><a th:href="@{/dashboard}">Volver al dashboard</a> <a th:href="@{/tareas}">Todas las tareas</a></p>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Activo</th></tr>
+    </thead>
+    <tbody>
+      <!-- th:text también aquí: el nombre es texto libre ingresado por cada usuario -->
+      <tr th:each="u : ${usuarios}">
+        <td th:text="${u.id}"></td>
+        <td th:text="${u.nombre}"></td>
+        <td th:text="${u.email}"></td>
+        <td th:text="${u.rol}"></td>
+        <td th:text="${u.activo} ? 'Sí' : 'No'"></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

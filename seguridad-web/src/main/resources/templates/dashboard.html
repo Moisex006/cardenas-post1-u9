@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+  <h1>Dashboard</h1>
+
+  <!-- SEGURO (versión final que queda en el commit): th:text escapa el
+       contenido. Si usuario es "<script>alert(1)</script>", Thymeleaf lo
+       renderiza como &lt;script&gt;alert(1)&lt;/script&gt; y el navegador
+       lo muestra como texto plano, sin ejecutarlo. -->
+  <p>Bienvenido, <span th:text="${usuario}"></span></p>
+
+  <!-- INSEGURO — SOLO PARA LA PRUEBA DEL PASO 8, luego se revierte:
+  <p th:utext="${usuario}"></p>
+  Con th:utext, el mismo valor se inserta como HTML sin escapar: si
+  usuario contiene <script>alert(1)</script>, el navegador SÍ lo
+  ejecuta. Esta es la línea que se activa temporalmente para el
+  Checkpoint 2 y luego se vuelve a comentar. -->
+
+  <p>Correo: <span th:text="${email}"></span></p>
+  <p>Roles: <span th:text="${roles}"></span></p>
+
+  <p class="menu">
+    <a th:href="@{/tareas}">Mis tareas</a>
+    <!-- Solo visible para ADMIN -->
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}">Panel de Administración</a>
+  </p>
+
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">Cerrar Sesión</button>
+  </form>
+</body>
+</html>

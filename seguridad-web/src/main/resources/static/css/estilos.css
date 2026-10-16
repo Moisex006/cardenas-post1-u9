@@ -1,0 +1,17 @@
+body { font-family: Arial, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1f2933; }
+h1 { color: #21295C; }
+a { color: #065A82; }
+label { display: block; margin-top: 0.75rem; font-weight: bold; }
+input, textarea { width: 100%; max-width: 420px; padding: 6px; box-sizing: border-box; }
+button { margin-top: 0.75rem; padding: 6px 14px; cursor: pointer; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+th { background: #065A82; color: #fff; }
+.error { color: #C62828; }
+.ok { color: #2E7D32; }
+.aviso { background: #FFF8E1; border: 1px solid #F9A825; padding: 8px 12px; }
+.completada { text-decoration: line-through; color: #808080; }
+.menu a { margin-right: 1rem; }
+.linea { display: inline; }
+.linea button { margin-top: 0; }
+td:last-child { white-space: nowrap; }
